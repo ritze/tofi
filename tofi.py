@@ -47,7 +47,7 @@ class FileDir(argparse.Action):
         files = []
         for entry in dest:
             if isfile(entry):
-                files.extend(entry)
+                files.append(entry)
             elif isdir(entry):
                 for (dirpath, dirnames, filenames) in walk(entry):
                     for filename in filenames:
