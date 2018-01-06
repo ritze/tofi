@@ -1,0 +1,47 @@
+//BUG:  1 This is a BUG commit
+ # FIXME:  2 This is a FIXME commit
+  '' HACK:  3 This is a HACK commit
+	"" NOTE:  4 This is a NOTE commit
+		; OPTIMIZE:  5 This is a OPTIMIZE commit
+ 	-- TODO:  6 This is a TODO commit
+
+// DEBUG:  X This is a false positive
+
+	// XXX:  7 This
+	// is a XXX
+	//        commit
+
+    /* BUG:  8 This
+	 * is a
+	 * BUG commit
+	 */
+    /** FIXME: 9 This
+	  * is a FIXME
+	  * commit
+	  */
+
+	/* HACK: 10 This
+	        is a
+			HACK commit */
+	
+	/** NOTE: 11 This
+	        is a
+			NOTE commit **/
+
+	/* OPTIMIZE: 12 This
+is a
+	OPTIMIZE
+	commit
+*/
+
+/* TODO: 13 This is a TODO commit */
+/** XXX: 14 This is a XXX commit **/
+
+// BUG: 15 This is a BUG commit
+// FIXME: 16 This is a FIXME commit
+//
+//
+int test = 42// 	HACK: 17 This
+         // is a HACK
+		 // commit
+BUG: This is a bug in the script
