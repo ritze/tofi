@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*
 
 import argparse
-import os
+from os import walk
+from os.path import isdir, isfile
 import subprocess
 
 class color:
@@ -39,6 +40,27 @@ COMMENTS_END = {
     '/**':  ['**/', '*/'],
     '/*':   ['*/']
 }
+
+
+class FileDir(argparse.Action):
+    def __call__(self, parser, args, dest, option_string=None):
+        files = []
+        for entry in dest:
+            if isfile(entry):
+                files.extend(entry)
+            elif isdir(entry):
+                for (dirpath, dirnames, filenames) in walk(entry):
+                    for filename in filenames:
+                        path = "{}/{}".format(dirpath, filename)
+                        files.append(path)
+        files.sort()
+        setattr(args, self.dest, files)
+
+    def type(dest):
+        if not isdir(dest) and not isfile(dest):
+            msg = "{} is neither file nor directory".format(dest)
+            raise argparse.ArgumentTypeError(msg)
+        return dest
 
 
 class Tofi():
@@ -169,7 +191,7 @@ if __name__ == "__main__":
                         help='hide number of line')
     parser.add_argument('-s', '--hide-symbols', action='store_true',
                         help='hide symbols')
-    parser.add_argument('file', type=argparse.FileType('r'), nargs='*',
+    parser.add_argument('file', nargs='+', type=FileDir.type, action=FileDir,
                         help='source files')
 
     args = parser.parse_args()
@@ -192,7 +214,7 @@ if __name__ == "__main__":
         num = 0
 
     for file in args.file:
-        found = tofi.parse(file.name, num > 0)
+        found = tofi.parse(file, num > 0)
         num -= 1
         if found and num > 0:
             print('')
