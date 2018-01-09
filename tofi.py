@@ -147,7 +147,10 @@ class Tofi():
         found = False
 
         f = open(path, 'r')
-        text = f.readlines()
+        try:
+            text = f.readlines()
+        except UnicodeDecodeError:
+            return False
 
         indent = sum(1 for line in text)
         indent = len(str(indent))
