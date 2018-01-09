@@ -194,8 +194,8 @@ if __name__ == "__main__":
                         help='hide number of line')
     parser.add_argument('-s', '--hide-symbols', action='store_true',
                         help='hide symbols')
-    parser.add_argument('file', nargs='+', type=FileDir.type, action=FileDir,
-                        help='source files')
+    parser.add_argument('file', nargs='*', type=FileDir.type, action=FileDir,
+                        help='source files', default='.')
 
     args = parser.parse_args()
 
